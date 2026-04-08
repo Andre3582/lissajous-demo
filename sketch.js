@@ -3,10 +3,9 @@ let t = 0;
 let phase_shift;
 let init_phase = 0;
 let rotations_per_sec = 1 
-let frames_per_cycle = 200
+let frames_per_cycle = 120
 let a = 2
 let b = 3
-
 let very_wide = window.innerWidth > (window.innerHeight * 2) 
 let wide = window.innerWidth > window.innerHeight
 let cnv_width, cnv_height
@@ -26,7 +25,7 @@ if (very_wide) {
 
 let cnv
 let line_width = Math.min(cnv_width, cnv_height)/15
-let line_dot_count = 400
+let line_dot_count = 120
 
 let alpha_value_spin_L
 let alpha_value_spin_R
@@ -63,12 +62,13 @@ function setup() {
 function draw() {
   background(bg_color)
   
+  
   noStroke()
   translate(width/2, height/2)
   
   // phase = init_phase + frameCount * cycles_per_60_frames * TAU
   phase = map(frameCount%frames_per_cycle, 0, frames_per_cycle, 0, TAU)
-  
+  let coords = []
   for (let i = 0; i < line_dot_count; i++) {
     let fig_width = width*0.6
     let fig_height = height*0.6
@@ -78,16 +78,26 @@ function draw() {
   	x = 0.5 * fig_width  * cos(a*loc_on_curve + phase);
   	y = 0.5 * fig_height * sin(b*loc_on_curve + phase);
     
-    // forces 'spinning' left or right
+    coords.push([x,y])
+    }
+  
+  for (let i = 0; i < line_dot_count; i++) {
+    let next_i = (i+1)%line_dot_count
+    
+    let loc_on_curve = map(i, 0, line_dot_count, 0, TAU)
+    
     fig_color = color(fig_color)
-    alpha_value_spin_L = map( sin((loc_on_curve*a+phase)), -1, 1, 25,250)
-    alpha_value_spin_R = map( sin((loc_on_curve*a+phase)),  1,-1, 25,250)
+    
+    
+    // forces 'spinning' left or right
+    alpha_value_spin_L = map( sin((loc_on_curve*a+phase)), -1, 1, 50,300)
+    alpha_value_spin_R = map( sin((loc_on_curve*a+phase)),  1,-1, 50,300)
     
     // forces 'rolling' up or down
-    alpha_value_roll_U = map( cos((loc_on_curve*b+phase)), -1, 1, 25,250)
-    alpha_value_roll_D = map( cos((loc_on_curve*b+phase)),  1,-1, 25,250)
+    alpha_value_roll_U = map( cos((loc_on_curve*b+phase)), -1, 1, 50,300)
+    alpha_value_roll_D = map( cos((loc_on_curve*b+phase)),  1,-1, 50,300)
     
-    
+  
     // force a rotation direction with arrowkeys
          if (keyIsDown(LEFT_ARROW))  { fig_color.setAlpha(alpha_value_spin_L) }
     else if (keyIsDown(RIGHT_ARROW)) { fig_color.setAlpha(alpha_value_spin_R) }
@@ -111,16 +121,20 @@ function draw() {
     }
     
 
-    fill(fig_color)
-    noStroke()
-    circle(x, y, line_width);  	
+    stroke(fig_color)
+    strokeWeight(line_width)
+    let [x1,y1] = coords[i]
+    let [x2,y2] = coords[next_i]
+    line(x1,y1,x2,y2);  	
     
     
     fill(theme_yellow)
     stroke('black')
+    strokeWeight(line_width/5)
     text('In what direction does this figure spin?', 0, -height*0.4);
     text(
-`Try to tap/click and hold different parts of this figure\nto reveal all 4 directions.`, 0, height*0.42);
+`Try to tap/click and hold different parts of this figure\nto reveal all 4 directions.`, 0, height*0.43
+    );
   }
 
 }
