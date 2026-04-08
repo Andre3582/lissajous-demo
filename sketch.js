@@ -3,7 +3,7 @@ let t = 0;
 let phase_shift;
 let init_phase = 0;
 let rotations_per_sec = 1 
-let frames_per_cycle = 100
+let frames_per_cycle = 200
 let a = 2
 let b = 3
 
@@ -119,7 +119,7 @@ function draw() {
     fill(theme_yellow)
     stroke('black')
     text('In what direction does this figure spin?', 0, -height*0.4);
-    text('Try to tap/click and hold different parts of this figure.', 0, height*0.45);
+    text('Try to tap/click and hold different partsof this figure to "see" all directions.', 0, height*0.45);
   }
 
 }
