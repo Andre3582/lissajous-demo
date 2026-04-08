@@ -53,6 +53,10 @@ function setup() {
   let newCanvasX = (windowWidth - cnv_width)/2;
   let newCanvasY =(windowHeight - cnv_height)/5;
   cnv.position(newCanvasX,newCanvasY)
+  
+  textAlign(CENTER)
+  textSize(cnv_height/18)
+  textStyle(NORMAL)
   // saveGif('p5_lissajous', frames_per_cycle, {'units':'frames'})
 }
 
@@ -66,8 +70,8 @@ function draw() {
   phase = map(frameCount%frames_per_cycle, 0, frames_per_cycle, 0, TAU)
   
   for (let i = 0; i < line_dot_count; i++) {
-    let fig_width = width*0.8
-    let fig_height = height*0.8
+    let fig_width = width*0.6
+    let fig_height = height*0.6
     
     let loc_on_curve = map(i, 0, line_dot_count, 0, TAU)
     
@@ -108,7 +112,14 @@ function draw() {
     
 
     fill(fig_color)
+    noStroke()
     circle(x, y, line_width);  	
+    
+    
+    fill(theme_yellow)
+    stroke('black')
+    text('In what direction does this figure spin?', 0, -height*0.4);
+    text('Try to tap/click and hold different parts of this figure.', 0, height*0.45);
   }
 
 }
