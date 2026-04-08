@@ -119,7 +119,9 @@ function draw() {
     fill(theme_yellow)
     stroke('black')
     text('In what direction does this figure spin?', 0, -height*0.4);
-    text('Try to tap/click and hold different partsof this figure to "see" all directions.', 0, height*0.45);
+    text(
+`Try to tap/click and hold different parts of this figure
+to "see" all directions.`, 0, height*0.44);
   }
 
 }
