@@ -26,7 +26,7 @@ if (very_wide) {
 
 let cnv
 let line_width = Math.min(cnv_width, cnv_height)/15
-let line_dot_count = 600
+let line_dot_count = 400
 
 let alpha_value_spin_L
 let alpha_value_spin_R
