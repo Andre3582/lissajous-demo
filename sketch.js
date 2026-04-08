@@ -8,9 +8,16 @@ let a = 2
 let b = 3
 
 let very_wide = window.innerWidth > (window.innerHeight * 2) 
+let wide = window.innerWidth > window.innerHeight
 let cnv_width, cnv_height
+
+
 if (very_wide) {
   cnv_height = window.innerHeight
+  cnv_width = cnv_height * 2
+} else if (wide) {
+  console.log('wide')
+  cnv_height = window.innerHeight/2
   cnv_width = cnv_height * 2
 } else {
   cnv_width = window.innerWidth
